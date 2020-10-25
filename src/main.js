@@ -6,8 +6,12 @@ import router from "./router";
 
 import "./style/index.less";
 
+import axios from "@/utils/request.js";
+
 // 引入组件 element-ui
 Vue.use(ElementUI);
+
+Vue.prototype.$http = axios;
 
 Vue.config.productionTip = false;
 

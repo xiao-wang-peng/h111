@@ -76,7 +76,7 @@ export default {
 
       axios({
         method: "POST",
-        url: "http://ttapi.research.itcast.cn/mp/v1_0/authorizations",
+        url: "/mp/v1_0/authorizations",
         data: {
           mobile: name,
           code: password
