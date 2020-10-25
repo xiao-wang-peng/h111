@@ -83,11 +83,12 @@ export default {
         }
       })
         .then(res => {
-          // 发起请求弹出框
+          // 发起弹出框提示
           this.$message({
             message: "登陆成功",
             type: "success"
           });
+          // 请求完成结束按钮加载中状态
           this.isLoading = false;
         })
         .catch(err => {
