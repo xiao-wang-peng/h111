@@ -67,8 +67,11 @@ export default {
 
   methods: {
     deng() {
+      // es6解构获取的账号和密码
       const { name, password } = this;
+      //  判断用户是否未输入就登陆
       if (name === "" || password === "") return;
+      // 点击之后切换按钮状态 改变为加载中
       this.isLoading = true;
 
       axios({
@@ -80,6 +83,7 @@ export default {
         }
       })
         .then(res => {
+          // 发起请求弹出框
           this.$message({
             message: "登陆成功",
             type: "success"
