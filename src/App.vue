@@ -4,6 +4,14 @@
   </div>
 </template>
 
+<script>
+export default {
+  // created() {
+  //   this.$router.push("/login");
+  // }
+};
+</script>
+
 <style lang="less">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

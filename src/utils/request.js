@@ -7,6 +7,25 @@ import axios from "axios";
 
 axios.defaults.baseURL = "http://ttapi.research.itcast.cn";
 
+// 添加axios请求拦截器， 让每次提交自动带上token
+axios.interceptors.request.use(
+  function(config) {
+    // config: 表示当前请求的配置
+    // 如果本地有token信息，就取出来，在这里添加到config上
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    // Do something before request is sent
+    // console.log("所有的请求都这里走", config);
+    return config;
+  },
+  function(error) {
+    // Do something with request error
+    return Promise.reject(error);
+  }
+);
+
 // http://ttapi.research.itcast.cn/mp/v1_0/authorizations
 
 export default axios;
