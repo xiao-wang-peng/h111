@@ -133,11 +133,11 @@
 </template>
 
 <script>
-import MyLa from "../../components/drop-down.vue";
+import MyLa from '../../components/drop-down.vue'
 export default {
-  name: "articles",
-  props: [""],
-  data() {
+  name: 'articles',
+  props: [''],
+  data () {
     return {
       form: {
         region: null, // 频道
@@ -149,98 +149,98 @@ export default {
       curPage: 1,
       // 控制加载中状态
       isLoading: false
-    };
+    }
   },
 
   components: {
     MyLa
   },
-  created() {
-    this.getList();
+  created () {
+    this.getList()
   },
 
   computed: {},
 
-  beforeMount() {},
+  beforeMount () {},
 
-  mounted() {},
+  mounted () {},
 
   methods: {
-    change(val) {
-      this.region = val;
+    change (val) {
+      this.region = val
     },
-    getCond() {
-      const { region, dateRange, resource } = this.form;
+    getCond () {
+      const { region, dateRange, resource } = this.form
       const obj = {
         page: this.curPage,
         status: resource
-      };
+      }
       // 检查用户是否选择了日期区域
       if (dateRange) {
-        obj.begin_pubdate = dateRange[0];
-        obj.end_pubdate = dateRange[1];
+        obj.begin_pubdate = dateRange[0]
+        obj.end_pubdate = dateRange[1]
       }
 
       if (region) {
-        obj.channel_id = region;
+        obj.channel_id = region
       } else {
-        obj.channel_id = null;
+        obj.channel_id = null
       }
 
-      return obj;
+      return obj
     },
 
-    async getList() {
-      const obj = this.getCond();
-      this.isLoading = true;
+    async getList () {
+      const obj = this.getCond()
+      this.isLoading = true
 
       try {
         const res = await this.$axios({
-          method: "GET",
-          url: "/mp/v1_0/articles",
+          method: 'GET',
+          url: '/mp/v1_0/articles',
           params: obj
-        });
+        })
 
-        this.articles = res.data.data.results;
+        this.articles = res.data.data.results
 
-        this.totalCount = res.data.data.total_count;
-        this.isLoading = false;
+        this.totalCount = res.data.data.total_count
+        this.isLoading = false
       } catch (err) {
-        console.log(err);
-        this.isLoading = false;
+        console.log(err)
+        this.isLoading = false
       }
     },
-    cha() {
-      this.getList();
+    cha () {
+      this.getList()
     },
-    PageChange(curPage) {
-      this.curPage = curPage;
-      this.getList();
+    PageChange (curPage) {
+      this.curPage = curPage
+      this.getList()
     },
-    Edit(index, row) {
-      this.$router.push("/edit/" + row.id);
+    Edit (index, row) {
+      this.$router.push('/edit/' + row.id)
     },
-    async Delete(index, row) {
+    async Delete (index, row) {
       // console.log(index, row);
       // 询问用户是否删除
-      if (confirm("确定要删除吗？")) {
+      if (confirm('确定要删除吗？')) {
         try {
           const res = await this.$axios({
-            url: "/mp/v1_0/articles/" + row.id,
-            method: "DELETE"
-          });
+            url: '/mp/v1_0/articles/' + row.id,
+            method: 'DELETE'
+          })
           // console.log(res);
-          this.$message.success("删除成功");
-          this.getList();
+          this.$message.success('删除成功')
+          this.getList()
         } catch (err) {
-          console.log(err);
-          this.$message.error("删除失败");
+          console.log(err)
+          this.$message.error('删除失败')
         }
       }
     }
   },
 
   watch: {}
-};
+}
 </script>
 <style lang="less" scoped></style>

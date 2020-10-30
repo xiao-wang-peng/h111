@@ -18,45 +18,45 @@
 
 <script>
 export default {
-  name: "drop-down",
-  props: [""],
-  data() {
+  name: 'drop-down',
+  props: [''],
+  data () {
     return {
       list: [],
-      ListId: ""
-    };
+      ListId: ''
+    }
   },
 
   components: {},
 
   computed: {},
 
-  beforeMount() {},
+  beforeMount () {},
 
-  mounted() {},
+  mounted () {},
 
   methods: {
-    async getList() {
+    async getList () {
       try {
         const res = await this.$axios({
-          method: "GET",
-          url: "/mp/v1_0/channels"
-        });
+          method: 'GET',
+          url: '/mp/v1_0/channels'
+        })
         // console.log(res);
-        this.list = res.data.data.channels;
+        this.list = res.data.data.channels
       } catch (err) {
-        console.log(err);
+        console.log(err)
       }
     },
-    xuan() {
-      this.$emit("input", this.ListId);
+    xuan () {
+      this.$emit('input', this.ListId)
     }
   },
 
   watch: {},
-  created() {
-    this.getList();
+  created () {
+    this.getList()
   }
-};
+}
 </script>
 <style lang="" scoped></style>

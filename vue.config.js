@@ -4,4 +4,4 @@ module.exports = {
     open: true,
     port: 666
   }
-};
+}

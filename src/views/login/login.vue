@@ -41,55 +41,55 @@
 
 <script>
 export default {
-  name: "Login",
-  props: [""],
-  data() {
+  name: 'Login',
+  props: [''],
+  data () {
     return {
       rules: {
         name: [
-          { required: true, message: "请输入手机号", trigger: "blur" },
+          { required: true, message: '请输入手机号', trigger: 'blur' },
           {
             pattern: /^1\d{10}$/,
-            message: "请输入正确的手机号",
-            trigger: "blur"
+            message: '请输入正确的手机号',
+            trigger: 'blur'
           }
         ],
         password: [
-          { required: true, message: "请输入验证码", trigger: "blur" },
-          { pattern: /^\d{6}$/, message: "请输入正确的验证码", trigger: "blur" }
+          { required: true, message: '请输入验证码', trigger: 'blur' },
+          { pattern: /^\d{6}$/, message: '请输入正确的验证码', trigger: 'blur' }
         ]
       },
       form: {
         // 用户账号
-        name: "13911111111",
+        name: '13911111111',
         // 用户密码
-        password: "246810"
+        password: '246810'
       },
       // 是否勾选协议
       isNum: false,
       // 判断按钮是否处于加载中
       isLoading: false
-    };
+    }
   },
 
   components: {},
 
   computed: {},
 
-  beforeMount() {},
+  beforeMount () {},
 
-  mounted() {},
+  mounted () {},
 
   methods: {
-    deng() {
+    deng () {
       // es6解构获取的账号和密码
-      const { name, password } = this.form;
+      const { name, password } = this.form
       // 点击之后切换按钮状态 改变为加载中
-      this.isLoading = true;
+      this.isLoading = true
 
       this.$axios({
-        method: "POST",
-        url: "/mp/v1_0/authorizations",
+        method: 'POST',
+        url: '/mp/v1_0/authorizations',
         data: {
           mobile: name,
           code: password
@@ -98,39 +98,39 @@ export default {
         .then(res => {
           // 发起弹出框提示
           this.$message({
-            message: "登陆成功",
-            type: "success"
-          });
-          localStorage.setItem("token", res.data.data.token);
+            message: '登陆成功',
+            type: 'success'
+          })
+          localStorage.setItem('token', res.data.data.token)
           // 请求完成结束按钮加载中状态
-          this.$router.push("/");
-          this.isLoading = false;
+          this.$router.push('/')
+          this.isLoading = false
           // console.log(res);
         })
         .catch(err => {
           this.$message({
-            message: "登陆失败",
-            type: "error"
-          });
-          this.isLoading = false;
-        });
+            message: '登陆失败',
+            type: 'error'
+          })
+          this.isLoading = false
+        })
     },
-    ydeng() {
+    ydeng () {
       this.$refs.form.validate(valid => {
         if (valid) {
-          this.deng();
+          this.deng()
         } else {
           this.$message({
-            message: "账号或者密码错误",
-            type: "error"
-          });
+            message: '账号或者密码错误',
+            type: 'error'
+          })
         }
-      });
+      })
     }
   },
 
   watch: {}
-};
+}
 </script>
 <style lang="less" scoped>
 // 铺满整屏

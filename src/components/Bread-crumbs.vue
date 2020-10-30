@@ -11,23 +11,23 @@
 
 <script>
 export default {
-  name: "Bread-crumbs",
-  props: [""],
-  data() {
-    return {};
+  name: 'Bread-crumbs',
+  props: [''],
+  data () {
+    return {}
   },
 
   components: {},
 
   computed: {},
 
-  beforeMount() {},
+  beforeMount () {},
 
-  mounted() {},
+  mounted () {},
 
   methods: {},
 
   watch: {}
-};
+}
 </script>
 <style lang="" scoped></style>

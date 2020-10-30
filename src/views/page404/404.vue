@@ -6,23 +6,23 @@
 
 <script>
 export default {
-  name: "",
-  props: [""],
-  data() {
-    return {};
+  name: '',
+  props: [''],
+  data () {
+    return {}
   },
 
   components: {},
 
   computed: {},
 
-  beforeMount() {},
+  beforeMount () {},
 
-  mounted() {},
+  mounted () {},
 
   methods: {},
 
   watch: {}
-};
+}
 </script>
 <style lang="" scoped></style>

@@ -79,54 +79,54 @@
 
 <script>
 export default {
-  name: "Layout",
-  props: [""],
-  data() {
+  name: 'Layout',
+  props: [''],
+  data () {
     return {
       user: {},
       num: false
-    };
+    }
   },
 
   components: {},
 
   computed: {},
 
-  beforeMount() {},
+  beforeMount () {},
 
-  mounted() {},
+  mounted () {},
 
   methods: {
-    tui() {
-      this.$confirm("无上大道就在眼前，你确定就此退出？", {
-        type: "warning"
+    tui () {
+      this.$confirm('无上大道就在眼前，你确定就此退出？', {
+        type: 'warning'
       })
         .then(() => {
-          localStorage.removeItem("token");
-          this.$router.push("/login");
+          localStorage.removeItem('token')
+          this.$router.push('/login')
         })
-        .catch(() => {});
+        .catch(() => {})
     },
-    async getUser() {
+    async getUser () {
       // 发送请求获取用户信息;
       try {
         const res = await this.$axios({
-          method: "GET",
-          url: "/mp/v1_0/user/profile"
-        });
+          method: 'GET',
+          url: '/mp/v1_0/user/profile'
+        })
         // console.log(res);
-        this.user = res.data.data;
+        this.user = res.data.data
       } catch (err) {
-        console.log(err);
+        console.log(err)
       }
     }
   },
-  created() {
-    this.getUser();
+  created () {
+    this.getUser()
   },
 
   watch: {}
-};
+}
 </script>
 <style lang="less" scoped>
 /* 外层的容器

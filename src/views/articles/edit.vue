@@ -4,23 +4,23 @@
 
 <script>
 export default {
-  name: "edit",
-  props: [""],
-  data() {
-    return {};
+  name: 'edit',
+  props: [''],
+  data () {
+    return {}
   },
 
   components: {},
 
   computed: {},
 
-  beforeMount() {},
+  beforeMount () {},
 
-  mounted() {},
+  mounted () {},
 
   methods: {},
 
   watch: {}
-};
+}
 </script>
 <style lang="" scoped></style>

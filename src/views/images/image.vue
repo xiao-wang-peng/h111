@@ -119,6 +119,23 @@ export default {
   },
 
   methods: {
+    // 删除图片
+    async del(id) {
+      if (!confirm("确定要删除？")) return;
+      try {
+        const res = await this.$axios({
+          url: "/mp/v1_0/user/images/" + id,
+          method: "DELETE"
+        });
+        console.log(res);
+        this.$message.success("删除成功");
+        this.getList();
+      } catch (error) {
+        this.$message.error("删除成功");
+
+        console.log(error);
+      }
+    },
     // 切换收藏或不收藏
     async huan(item) {
       const id = item.id;
