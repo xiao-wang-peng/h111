@@ -59,12 +59,12 @@
     -->
     <el-dialog title="素材上传" append-to-body :visible.sync="dialogVisible">
       <!--
-- action： 必选参数，上传的地址：http://ttapi.research.itcast.cn/mp/v1_0/user/images
-- headers: 设置上传的请求头部。要携带token
-- name：上传的文件字段名。要与接口中要求保持一致。
-- show-file-list： 是否显示已上传文件列表
-- on-success：文件上传成功时的钩子。`function(response, file, fileList)`
-- before-upload: 上传之前对文件进行检测。 -->
+ action： 必选参数，上传的地址：http://ttapi.research.itcast.cn/mp/v1_0/user/images
+ headers: 设置上传的请求头部。要携带token
+ name：上传的文件字段名。要与接口中要求保持一致。
+show-file-list： 是否显示已上传文件列表
+ on-success：文件上传成功时的钩子。`function(response, file, fileList)`
+ before-upload: 上传之前对文件进行检测。 -->
       <el-upload
         class="avatar-uploader"
         action="http://ttapi.research.itcast.cn/mp/v1_0/user/images"
