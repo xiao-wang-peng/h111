@@ -2,12 +2,7 @@
   <div>
     <!-- 筛选区域 -->
     <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <el-breadcrumb separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item>内容管理</el-breadcrumb-item>
-        </el-breadcrumb>
-      </div>
+      <my-nav>内容管理</my-nav>
       <div class="text item">
         <el-form ref="form" :model="form" label-width="80px">
           <!-- 单选框 -->

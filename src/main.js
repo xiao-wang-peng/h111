@@ -6,10 +6,11 @@ import router from "./router";
 import axios from "./utils/request.js";
 
 import "./style/index.less";
+import MyNav from "@/components/Bread-crumbs.vue";
 
 // 引入组件 element-ui
 Vue.use(ElementUI);
-
+Vue.component("MyNav", MyNav);
 Vue.prototype.$axios = axios;
 
 Vue.config.productionTip = false;

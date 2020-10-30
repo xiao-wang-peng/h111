@@ -1,6 +1,6 @@
 <template>
   <div>
-    image页面
+    <my-nav>image页面</my-nav>
   </div>
 </template>
 
