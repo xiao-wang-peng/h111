@@ -223,7 +223,7 @@ export default {
       this.getList();
     },
     Edit(index, row) {
-      console.log(index, row);
+      this.$router.push("/edit/" + row.id);
     },
     async Delete(index, row) {
       // console.log(index, row);
