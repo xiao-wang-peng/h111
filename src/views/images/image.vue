@@ -190,25 +190,24 @@ export default {
     // 上传成功
     hUploadSuccess(res, file) {
       // res中保存着本次上传操作成功后，后端接口返回的数值
-      // 1. 预览效果
+      // 预览效果
       this.imageUrl = res.data.url;
-      // console.log('文件上传成功', res, file)
 
-      // 2. 重新请求一次
+      //  重新请求一次
       this.getList();
     },
     hBeforeUpload(file) {
-      const isJPG = file.type === "image/jpeg";
+      const JPG = file.type === "image/jpeg";
       // file.size 单位是字节
-      const isLt2M = file.size / 1024 / 1024 < 2;
+      const Lt2M = file.size / 1024 / 1024 < 2;
 
-      if (!isJPG) {
+      if (!JPG) {
         this.$message.error("上传头像图片只能是 JPG 格式!");
       }
-      if (!isLt2M) {
+      if (!Lt2M) {
         this.$message.error("上传头像图片大小不能超过 2MB!");
       }
-      return isJPG && isLt2M;
+      return JPG && Lt2M;
     },
     // 切换收藏和全部
     qieH() {
