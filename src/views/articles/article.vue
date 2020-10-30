@@ -40,7 +40,9 @@
           </el-form-item>
 
           <el-form-item>
-            <el-button type="primary" @click="cha">查询</el-button>
+            <el-button type="primary" :loading="isLoading" @click="cha"
+              >查询</el-button
+            >
           </el-form-item>
         </el-form>
       </div>
@@ -122,6 +124,7 @@
       </el-table>
       <!-- 分页开始了 -->
       <el-pagination
+        :disabled="isLoading"
         style="margin-top: 1em;"
         background
         :page-size="10"
@@ -148,7 +151,9 @@ export default {
       },
       totalCount: 0, // 根据筛选条件查询结果的数量,
       articles: [],
-      curPage: 1
+      curPage: 1,
+      // 控制加载中状态
+      isLoading: false
     };
   },
 
@@ -192,6 +197,7 @@ export default {
 
     async getList() {
       const obj = this.getCond();
+      this.isLoading = true;
 
       try {
         const res = await this.$axios({
@@ -203,8 +209,10 @@ export default {
         this.articles = res.data.data.results;
 
         this.totalCount = res.data.data.total_count;
+        this.isLoading = false;
       } catch (err) {
         console.log(err);
+        this.isLoading = false;
       }
     },
     cha() {
@@ -217,8 +225,23 @@ export default {
     Edit(index, row) {
       console.log(index, row);
     },
-    Delete(index, row) {
-      console.log(index, row);
+    async Delete(index, row) {
+      // console.log(index, row);
+      // 询问用户是否删除
+      if (confirm("确定要删除吗？")) {
+        try {
+          const res = await this.$axios({
+            url: "/mp/v1_0/articles/" + row.id,
+            method: "DELETE"
+          });
+          // console.log(res);
+          this.$message.success("删除成功");
+          this.getList();
+        } catch (err) {
+          console.log(err);
+          this.$message.error("删除失败");
+        }
+      }
     }
   },
 
