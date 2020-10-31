@@ -91,133 +91,133 @@ show-file-list： 是否显示已上传文件列表
 
 <script>
 export default {
-  name: "app-image",
-  props: [""],
-  data() {
+  name: 'app-image',
+  props: [''],
+  data () {
     return {
-      imageUrl: "",
+      imageUrl: '',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
+        Authorization: `Bearer ${localStorage.getItem('token')}`
       },
       isCollect: false, // 是否是收藏的图片 true表示是收藏，false表示是全部
       curPage: 1, // 当前查询第几页
       total_count: 0, // 查询的总数量
       dialogVisible: false, // 是否显示弹出对话框
       images: [] // 素材列表
-    };
+    }
   },
 
   components: {},
 
   computed: {},
 
-  beforeMount() {},
+  beforeMount () {},
 
-  mounted() {},
-  created() {
-    this.getList();
+  mounted () {},
+  created () {
+    this.getList()
   },
 
   methods: {
     // 删除图片
-    async del(id) {
-      if (!confirm("确定要删除？")) return;
+    async del (id) {
+      if (!confirm('确定要删除？')) return
       try {
         const res = await this.$axios({
-          url: "/mp/v1_0/user/images/" + id,
-          method: "DELETE"
-        });
-        console.log(res);
-        this.$message.success("删除成功");
-        this.getList();
+          url: '/mp/v1_0/user/images/' + id,
+          method: 'DELETE'
+        })
+        console.log(res)
+        this.$message.success('删除成功')
+        this.getList()
       } catch (error) {
-        this.$message.error("删除失败");
+        this.$message.error('删除失败')
 
-        console.log(error);
+        console.log(error)
       }
     },
     // 切换收藏或不收藏
-    async huan(item) {
-      const id = item.id;
+    async huan (item) {
+      const id = item.id
       try {
         const res = await this.$axios({
-          url: "/mp/v1_0/user/images/" + id,
-          method: "PUT",
+          url: '/mp/v1_0/user/images/' + id,
+          method: 'PUT',
           data: {
             collect: !item.is_collected
           }
-        });
-
-        this.$message.success("操作成功");
-        item.is_collected = !item.is_collected;
+        })
+        console.log(res)
+        this.$message.success('操作成功')
+        item.is_collected = !item.is_collected
       } catch (error) {
-        console.log(error);
-        this.$message.error("操作失败");
+        console.log(error)
+        this.$message.error('操作失败')
       }
     },
     // 获取素材信息
-    async getList() {
+    async getList () {
       try {
         const res = await this.$axios({
-          url: "/mp/v1_0/user/images",
-          method: "GET",
+          url: '/mp/v1_0/user/images',
+          method: 'GET',
           params: {
             per_page: 10, // 固定每页只取回10条
             collect: this.isCollect, // 是否是收藏的图片
             page: this.curPage
           }
-        });
+        })
         // console.log(res);
-        this.total_count = res.data.data.total_count;
-        this.images = res.data.data.results;
+        this.total_count = res.data.data.total_count
+        this.images = res.data.data.results
       } catch (err) {
-        console.log(err);
+        console.log(err)
       }
     },
     // 切换分页
-    PageChange(page) {
-      this.curPage = page;
-      this.getList();
+    PageChange (page) {
+      this.curPage = page
+      this.getList()
     },
-    hpreviewImageload() {
+    hpreviewImageload () {
       // 表示图片预览成功
-      console.log("图片预览成功", Date.now());
+      console.log('图片预览成功', Date.now())
       setTimeout(() => {
-        this.dialogVisible = false;
-        this.imageUrl = "";
-      }, 2000);
+        this.dialogVisible = false
+        this.imageUrl = ''
+      }, 2000)
     },
     // 上传成功
-    hUploadSuccess(res, file) {
+    hUploadSuccess (res, file) {
       // res中保存着本次上传操作成功后，后端接口返回的数值
       // 预览效果
-      this.imageUrl = res.data.url;
+      this.imageUrl = res.data.url
 
       //  重新请求一次
-      this.getList();
+      this.getList()
     },
-    hBeforeUpload(file) {
-      const JPG = file.type === "image/jpeg";
+    hBeforeUpload (file) {
+      const JPG = file.type === 'image/jpeg'
       // file.size 单位是字节
-      const Lt2M = file.size / 1024 / 1024 < 2;
+      const Lt2M = file.size / 1024 / 1024 < 2
 
       if (!JPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
+        this.$message.error('上传头像图片只能是 JPG 格式!')
       }
       if (!Lt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
+        this.$message.error('上传头像图片大小不能超过 2MB!')
       }
-      return JPG && Lt2M;
+      return JPG && Lt2M
     },
     // 切换收藏和全部
-    qieH() {
-      this.curPage = 1;
-      this.getList();
+    qieH () {
+      this.curPage = 1
+      this.getList()
     }
   },
 
   watch: {}
-};
+}
 </script>
 <style lang="less" scoped>
 .red {

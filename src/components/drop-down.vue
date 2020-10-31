@@ -27,14 +27,6 @@ export default {
     }
   },
 
-  components: {},
-
-  computed: {},
-
-  beforeMount () {},
-
-  mounted () {},
-
   methods: {
     async getList () {
       try {

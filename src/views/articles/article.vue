@@ -133,7 +133,6 @@
 </template>
 
 <script>
-import MyLa from '../../components/drop-down.vue'
 export default {
   name: 'articles',
   props: [''],
@@ -152,9 +151,6 @@ export default {
     }
   },
 
-  components: {
-    MyLa
-  },
   created () {
     this.getList()
   },
@@ -215,6 +211,7 @@ export default {
     },
     PageChange (curPage) {
       this.curPage = curPage
+
       this.getList()
     },
     Edit (index, row) {
@@ -229,7 +226,7 @@ export default {
             url: '/mp/v1_0/articles/' + row.id,
             method: 'DELETE'
           })
-          // console.log(res);
+          console.log(res)
           this.$message.success('删除成功')
           this.getList()
         } catch (err) {

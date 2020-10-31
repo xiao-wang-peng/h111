@@ -6,6 +6,7 @@ import Article from '../views/articles/article.vue'
 import Image from '../views/images/image.vue'
 import Page from '../views/page404/404.vue'
 import Edit from '../views/articles/edit.vue'
+import Add from '../views/articles/add.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -19,7 +20,8 @@ const routes = [
     children: [
       { path: '/articles', component: Article },
       { path: '/image', component: Image },
-      { path: '/edit/:id', component: Edit }
+      { path: '/edit/:id', component: Edit },
+      { path: '/add', component: Add }
     ]
   },
   {
