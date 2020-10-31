@@ -3,7 +3,7 @@
     <div slot="header" class="clearfix">
       <my-Nav>发布文章</my-Nav>
     </div>
-    <el-form label-width="80px" ref="form" :rules="rules" :model="form">
+    <el-form label-width="80px" ref="myForm" :rules="rules" :model="form">
       <el-form-item label="标题" prop="title">
         <el-input v-model="form.title"></el-input>
       </el-form-item>
@@ -18,10 +18,10 @@
           <el-radio label="自动"></el-radio>
         </el-radio-group>
       </el-form-item>
-      <my-la v-model="channelId"></my-la>
+      <my-la v-model="form.ListId"></my-la>
       <el-form-item>
-        <el-button type="primary" @click="Publish">发布</el-button>
-        <el-button>存入草稿</el-button>
+        <el-button type="primary" @click="Publish(false)">发布</el-button>
+        <el-button @click="Publish(true)">存入草稿</el-button>
       </el-form-item>
     </el-form>
 
@@ -37,14 +37,13 @@ import 'quill/dist/quill.bubble.css'
 import { quillEditor } from 'vue-quill-editor'
 export default {
   name: 'app-add',
-  props: [''],
   data () {
     return {
       form: {
         title: '',
         content: '',
         cover: '',
-        channelId: ''
+        ListId: ''
       },
       rules: {
         title: [
@@ -55,7 +54,7 @@ export default {
           { required: true, message: '请输入文章内容', trigger: 'blur' },
           { min: 20, max: 30000, message: '最少20个字', trigger: 'blur' }
         ],
-        channelId: [
+        ListId: [
           { required: true, message: '请选择频道', trigger: 'blur' }
         ]
       },
@@ -80,7 +79,42 @@ export default {
     quillEditor
   },
   methods: {
-    Publish () {}
+    // 默认: 不是草稿
+    Publish (draft = false) {
+      // 1. 验证数据有效性
+      this.$refs.myForm.validate(valid => {
+        if (valid) {
+          this.doPublish(draft)
+        }
+      })
+    },
+    async doPublish (draft) {
+      try {
+        const { title, content, ListId } = this.form
+        // 2. 调用接口实现添加
+        const res = await this.$axios({
+          method: 'POST',
+          url: '/mp/v1_0/articles',
+          params: {
+            draft
+          },
+          data: {
+            title,
+            content,
+            channel_id: ListId,
+            cover: {
+              type: 0, // 先做无图的情况
+              images: []
+            }
+          }
+        })
+        console.log(res)
+        this.$message.success('发布成功')
+      } catch (error) {
+        console.log(error)
+        this.$message.error('发布失败')
+      }
+    }
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <el-form-item label="频道">
+  <el-form-item label="频道" prop="ListId">
     <el-select
       clearable
       v-model="ListId"
