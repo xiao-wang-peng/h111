@@ -81,39 +81,36 @@ export default {
   mounted () {},
 
   methods: {
-    deng () {
+    async deng () {
       // es6解构获取的账号和密码
       const { name, password } = this.form
       // 点击之后切换按钮状态 改变为加载中
       this.isLoading = true
-
-      this.$axios({
-        method: 'POST',
-        url: '/mp/v1_0/authorizations',
-        data: {
-          mobile: name,
-          code: password
-        }
-      })
-        .then(res => {
-          // 发起弹出框提示
-          this.$message({
-            message: '登陆成功',
-            type: 'success'
-          })
-          localStorage.setItem('token', res.data.data.token)
-          // 请求完成结束按钮加载中状态
-          this.$router.push('/')
-          this.isLoading = false
-          // console.log(res);
+      try {
+        const res = await this.$axios({
+          method: 'POST',
+          url: '/mp/v1_0/authorizations',
+          data: {
+            mobile: name,
+            code: password
+          }
         })
-        .catch(err => {
-          this.$message({
-            message: '登陆失败',
-            type: 'error'
-          })
-          this.isLoading = false
+        this.$message({
+          message: '登陆成功',
+          type: 'success'
         })
+        localStorage.setItem('token', res.data.data.token)
+        // 请求完成结束按钮加载中状态
+        this.$router.push('/')
+        this.isLoading = false
+        // console.log(res);
+      } catch (error) {
+        this.$message({
+          message: '登陆失败',
+          type: 'error'
+        })
+        this.isLoading = false
+      }
     },
     ydeng () {
       this.$refs.form.validate(valid => {

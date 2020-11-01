@@ -12,12 +12,20 @@
       </el-form-item>
       <el-form-item label="封面">
         <el-radio-group v-model="form.cover">
-          <el-radio label="单图"></el-radio>
-          <el-radio label="三图"></el-radio>
-          <el-radio label="无图"></el-radio>
-          <el-radio label="自动"></el-radio>
+          <el-radio :label="1">单图</el-radio>
+          <el-radio :label="3">三图</el-radio>
+          <el-radio :label="0">无图</el-radio>
+          <el-radio :label="-1">自动</el-radio>
         </el-radio-group>
       </el-form-item>
+      <el-form-item label="" v-if="form.cover>0">
+          <el-row>
+            <el-col :span="6" v-for="(item,idx) in form.cover" :key="idx">
+              {{idx}}
+              <my-cover v-model="form.coverImages[idx]"/>
+            </el-col>
+          </el-row>
+        </el-form-item>
       <my-la v-model="form.ListId"></my-la>
       <el-form-item>
         <el-button type="primary" @click="Publish(false)">发布</el-button>
@@ -43,7 +51,8 @@ export default {
         title: '',
         content: '',
         cover: '',
-        ListId: ''
+        ListId: '',
+        coverImages: []
       },
       rules: {
         title: [
@@ -90,7 +99,7 @@ export default {
     },
     async doPublish (draft) {
       try {
-        const { title, content, ListId } = this.form
+        const { title, content, ListId, cover, coverImages } = this.form
         // 2. 调用接口实现添加
         const res = await this.$axios({
           method: 'POST',
@@ -103,8 +112,8 @@ export default {
             content,
             channel_id: ListId,
             cover: {
-              type: 0, // 先做无图的情况
-              images: []
+              type: cover, // 先做无图的情况
+              images: coverImages
             }
           }
         })
