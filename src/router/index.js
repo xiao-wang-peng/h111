@@ -7,6 +7,7 @@ import Image from '../views/images/image.vue'
 import Page from '../views/page404/404.vue'
 import Edit from '../views/articles/edit.vue'
 import Add from '../views/articles/add.vue'
+import Comment from '../views/comment/index.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -21,7 +22,8 @@ const routes = [
       { path: '/articles', component: Article },
       { path: '/image', component: Image },
       { path: '/edit/:id', component: Edit },
-      { path: '/add', component: Add }
+      { path: '/add', component: Add },
+      { path: '/comment', component: Comment }
     ]
   },
   {
