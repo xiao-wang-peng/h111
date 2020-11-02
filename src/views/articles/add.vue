@@ -119,7 +119,7 @@ export default {
         })
         console.log(res)
         this.$message.success('发布成功')
-        this.$router.push('/articles')
+        this.$router.push('/')
       } catch (error) {
         console.log(error)
         this.$message.error('发布失败')

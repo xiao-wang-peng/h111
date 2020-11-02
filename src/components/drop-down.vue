@@ -47,6 +47,11 @@ export default {
 
   created () {
     this.getList()
+  },
+  watch: {
+    value: function (newVal, oldVal) {
+      this.ListId = newVal
+    }
   }
 }
 </script>
