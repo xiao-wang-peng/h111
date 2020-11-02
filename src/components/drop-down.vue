@@ -19,11 +19,11 @@
 <script>
 export default {
   name: 'drop-down',
-  props: [''],
+  props: ['value'],
   data () {
     return {
       list: [],
-      ListId: ''
+      ListId: this.value
     }
   },
 
@@ -45,7 +45,6 @@ export default {
     }
   },
 
-  watch: {},
   created () {
     this.getList()
   }

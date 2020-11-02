@@ -11,7 +11,7 @@
         <quill-editor v-model="form.content" :options="editorOption"></quill-editor>
       </el-form-item>
       <el-form-item label="封面">
-        <el-radio-group v-model="form.cover">
+        <el-radio-group v-model="form.cover" @change="WBUG">
           <el-radio :label="1">单图</el-radio>
           <el-radio :label="3">三图</el-radio>
           <el-radio :label="0">无图</el-radio>
@@ -119,9 +119,20 @@ export default {
         })
         console.log(res)
         this.$message.success('发布成功')
+        this.$router.push('/articles')
       } catch (error) {
         console.log(error)
         this.$message.error('发布失败')
+      }
+    },
+    WBUG () {
+      const { cover } = this.form
+      if (cover === 1) {
+        this.form.coverImages.length = 1
+      } else if (cover === 3) {
+        this.form.coverImages.length = 3
+      } else {
+        this.form.coverImages = []
       }
     }
   }
